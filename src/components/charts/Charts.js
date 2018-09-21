@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Graph } from "react-d3-graph";
 
 // graph payload (with minimalist structure)
