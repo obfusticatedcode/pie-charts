@@ -16,7 +16,10 @@ class Charts extends Component {
         { source: "Harry", target: "Sally" },
         { source: "Harry", target: "Alice" }
       ]
-    }
+    },      
+    competency:'CD1',
+    linksReady:false,
+    nodesReady:false
   };
 
   // the graph configuration, you only need to pass down properties
@@ -24,7 +27,6 @@ class Charts extends Component {
 
   onReadData(url) {
     return d3.csv(url, response => {
-        console.log(response);
         return response;
     });
   }
@@ -43,23 +45,37 @@ class Charts extends Component {
     };
   }
   componentDidMount() {
-    this.onReadData(nodes).then(response =>
+    this.onReadData(nodes).then(response =>{
+      let ndLst=response.filter(nd=>nd.to_id===this.state.competency).map(nd=>({
+        ...nd,
+        id:nd.from_id.split('@')[0],
+        size:nd.Total_reference*40000,
+      }))
+      
       this.setState({
-        data:{nodes: response}
+        ...this.state,
+        nodesReady:true,
+        data:{...this.state.data,nodes:ndLst}
       })
-    );
-    this.onReadData(links).then(response =>
+    });
+    this.onReadData(links).then(response =>{
+      let lkLst=response.filter(lk=>(lk.competency===this.state.competency)&&(lk.email!=='')&&(lk.author!=='')).map(lk=>({
+        ...lk,
+        source:lk.email.split('@')[0],
+        target:lk.author.split('@')[0],
+      }))  
       this.setState({
-        data:{ links: response}
+        ...this.state,
+        linksReady:true,
+        data:{...this.state.data, links:lkLst}
       })
-    );
+    });
   }
 
   render() {
     return (
       <div>
-        <Graph id="graph-id" data={this.state.sample} />
-        <div>{JSON.stringify(this.state.data, null, 2)}</div>
+        <Graph id="graph-id" data={(this.state.linksReady&&this.state.nodesReady)?this.state.data:this.state.sample} />
       </div>
     );
   }
