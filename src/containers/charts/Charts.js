@@ -23,14 +23,15 @@ class Charts extends Component {
       linksReady: false,
       nodesReady: false,
       config: {
+        height: 800,
         nodeHighlightBehavior: true,
         node: {
-          color: "lightgreen",
+          color: "#F37836",
           size: 120,
-          highlightStrokeColor: "blue"
+          highlightStrokeColor: "#818DC4",
         },
         link: {
-          highlightColor: "lightblue"
+          highlightColor: "#70B65D"
         }
       }
     };
