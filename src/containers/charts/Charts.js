@@ -16,6 +16,21 @@ class Charts extends Component {
         { source: "Harry", target: "Sally" },
         { source: "Harry", target: "Alice" }
       ]
+    },
+    config:{
+      nodeHighlightBehavior: true,
+      node: {
+        color: "lightgreen",
+        size: 120,
+        highlightStrokeColor: "blue"
+      },
+      link: {
+        highlightColor: "lightblue",
+        semanticStrokeWidth: true,
+        strokeWidth: 1.5,
+        type: "CURVE_SMOOTH",
+        color:'black'
+      }
     },      
     competency:'CD1',
     linksReady:false,
@@ -75,7 +90,7 @@ class Charts extends Component {
   render() {
     return (
       <div>
-        <Graph id="graph-id" data={(this.state.linksReady&&this.state.nodesReady)?this.state.data:this.state.sample} />
+        <Graph id="graph-id" config={this.state.config} data={(this.state.linksReady&&this.state.nodesReady)?this.state.data:this.state.sample} />
       </div>
     );
   }
