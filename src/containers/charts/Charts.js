@@ -52,7 +52,8 @@ class Charts extends Component {
       config: {
         height: 800,
         nodeHighlightBehavior: true,
-        linkHighlightBehavior:true,
+        linkHighlightBehavior:false,
+        highlightOpacity:0.1,
         node: {
           color: "#F37836",
           size: 120,
@@ -66,6 +67,7 @@ class Charts extends Component {
             '4':'#00A3E0'}
             return scheme[link.level]
           },
+          opacity:1,
           value:'level',
           highlightDirection:'INWARD',
           directed:false
@@ -92,7 +94,6 @@ class Charts extends Component {
 
   componentDidMount() {
     this.onReadData(nodes).then(response => {
-      let lookup = {}
       let competencies={}
       let ndLst = response
       .filter(nd => {
@@ -101,7 +102,6 @@ class Charts extends Component {
       })
       .map((nd,ind) =>{
         let id=nd.from_id.split("@")[0]
-        lookup[id]=ind
         return ({
           ...nd,
           id: id,
@@ -148,7 +148,7 @@ class Charts extends Component {
               position: 'absolute',
               left: '50px',
               top: '150px',
-              'z-index': '999'
+              'zIndex': '999'
         }}>
           {this.state.competenciesList?
             <SimpleSelect 

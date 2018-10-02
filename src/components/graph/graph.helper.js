@@ -196,6 +196,7 @@ function _validateGraphData(data) {
  * @memberof Graph/helper
  */
 function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
+    
     const { source, target } = link;
     const x1 = (nodes[source] && nodes[source].x) || 0;
     const y1 = (nodes[source] && nodes[source].y) || 0;
@@ -225,7 +226,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     let opacity = config.link.opacity;
 
     if (highlightedNode || (highlightedLink && highlightedLink.source)) {
-        opacity = highlight ? config.link.opacity : config.highlightOpacity;
+        opacity = highlight&&(highlightedNode===source) ? config.link.opacity : config.highlightOpacity;
     }
 
     let stroke = link.color || config.link.color;

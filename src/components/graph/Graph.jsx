@@ -297,7 +297,6 @@ export default class Graph extends React.Component {
                 }
             }
         ))
-        console.log('initial state',this.state)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -309,9 +308,19 @@ export default class Graph extends React.Component {
                 links: this.state.linksInputSnapshot
             });
         const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
-
+        if(newGraphElements){
+            console.log('lookup-update')
+            this.props.charts.setState(update(
+                this.props.charts.state,
+                {
+                    lookup:{
+                        links:{$set:state.links},
+                        nodes:{$set:state.nodes}
+                    }
+                }
+            ))           
+        }
         const newConfig = nextProps.config || {};
-        console.log('this state config',this.state.config)
         const configUpdated =newConfig && !utils.isObjectEmpty(newConfig) && !utils.isDeepEqual(newConfig, this.state.config);
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, newConfig) : this.state.config;
 

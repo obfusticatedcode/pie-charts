@@ -38,7 +38,7 @@ export default class SimpleSelect extends React.Component {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            {this.props.list.map(item=><MenuItem value={item.value}>{item.label}</MenuItem>)}
+            {this.props.list.map((item,ind)=><MenuItem key={ind} value={item.value}>{item.label}</MenuItem>)}
           </Select>
         </FormControl>
       </form>
