@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import "./App.css";
 import Charts from './charts/Charts';
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      Charts:{}
+    };
+  }
+
   render() {
     return (
       <div className="App">
@@ -9,10 +16,10 @@ class App extends Component {
           <h1 className="App-title">360 Network</h1>
         </header>
         <div>
-          <Charts />
-        </div>
+          <Charts/>
+        </div>   
       </div>
-    );
+    )
   }
 }
 
